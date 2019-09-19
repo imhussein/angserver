@@ -1,0 +1,7 @@
+{
+  "mongoURI": "mongodb://localhost:27017/blogon",
+  "secret": "secret",
+  "DEVPORT": 5000,
+  "baseURL": "/api/v1",
+  "SEND_GRID_API_KEY": "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"
+}
