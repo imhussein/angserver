@@ -32,18 +32,27 @@ exports.registerUser = (req, res, next) => {
             }),
           registerTokenExpiry: Date.now() + 60 * 60
         };
-        new User(newUser).save().then(user => {
-          transport.sendMail({
-            to: email,
-            from: "Mohamed" /* TO DO */,
-            subject: "Activate your account",
-            html: `
+        new User(newUser)
+          .save()
+          .then(user => {
+            transport
+              .sendMail({
+                to: email,
+                from: "Mohamed" /* TO DO */,
+                subject: "Activate your account",
+                html: `
             <h1>Thanks For Registeration ${user.name}</h1>
             <h3>To activate your account please click <a href="http://localhost:5000/users/activate/${user.registerToken}">Here</a></h3>
             <p>Thanks</p>
             <p></p>`
+              })
+              .then(() => {
+                return user;
+              });
+          })
+          .then(user => {
+            return res.status(201).json(user);
           });
-        });
       });
     });
   }
